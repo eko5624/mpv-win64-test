@@ -30,7 +30,7 @@ jobs:
         MSYSTEM: UCRT64
       shell: msys2 {0}
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/ffmpeg-dev-5.0.1-1-x86_64.pkg.tar.zst
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/ffmpeg-dev-5.1-1-x86_64.pkg.tar.zst
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/luajit2-dev-2.1_20220411-1-x86_64.pkg.tar.zst
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/ffnvcodec-dev-11.1.5.1-1-x86_64.pkg.tar.zst
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/vapoursynth-dev-59-1-x86_64.pkg.tar.zst
@@ -116,7 +116,7 @@ jobs:
     - name: Setup Packages      
       shell: msys2 {0}
       run: |        
-        curl -OL https://github.com/${{ github.repository }}/releases/download/latest/ffmpeg-5.0.1-1-x86_64.pkg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/latest/ffmpeg-5.1-1-x86_64.pkg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/latest/luajit2-2.1_20220411-1-x86_64.pkg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/latest/vapoursynth-59-1-x86_64.pkg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/latest/mpv-0.34.1-1-x86_64.pkg.tar.xz

@@ -5,24 +5,21 @@ pkgrel=1
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
 url='https://mpv.io/'
-makedepends=('yasm'
-             'vapoursynth-dev'
-             'ffmpeg-dev'
-             'luajit2-dev'
-             'ffnvcodec-dev'
-             'freetype2-dev'
-             'fribidi-dev'
-             'harfbuzz-dev'
-             'libass-dev'
-             'lcms2-dev'
-             'libbluray-dev'
-             'libdvdcss-dev'
-             'libdvdread-dev'
-             'libdvdnav-dev'
-             'shaderc-dev'
-             'spirv-cross-dev'
-             'vulkan-dev'
-             'libplacebo-dev')
+makedepends=("yasm"
+             "ffmpeg-dev"
+             "luajit2-dev" 
+             "freetype2-dev"
+             "fribidi-dev"
+             "harfbuzz-dev"
+             "libass-dev"
+             "lcms2-dev"
+             "libbluray-dev"
+             "libdvdnav-dev"
+             "libplacebo-dev"
+             "shaderc-dev"
+             "spirv-cross-dev"
+             "vapoursynth-dev"
+             "vulkan-dev")
 license=('GPL3')
 source=("git+https://github.com/mpv-player/mpv")
 md5sums=('SKIP')
@@ -30,7 +27,7 @@ md5sums=('SKIP')
 build() {
   cd $srcdir/mpv  
   python bootstrap.py
-  CC=gcc.exe LDFLAGS="$LDFLAGS -lstdc++" python waf configure --prefix=/opt --enable-static-build --enable-libmpv-shared --enable-libbluray --enable-dvdnav --enable-lua --disable-iconv --disable-debug-build
+  CC=gcc.exe LDFLAGS="$LDFLAGS -static -lssp -lstdc++" python waf configure --prefix=/opt --enable-static-build --enable-libmpv-shared --enable-libbluray --enable-dvdnav --enable-lua --disable-iconv --disable-debug-build
   python waf build
 }
 

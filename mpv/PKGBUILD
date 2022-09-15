@@ -32,7 +32,7 @@ build() {
   export CC="gcc.exe"   
   export LDFLAGS="-static"   
   python bootstrap.py
-  python waf configure --prefix=/opt --disable-iconv --disable-debug-build --enable-libbluray --enable-dvdnav
+  python waf configure --prefix=/opt --enable-static-build --enable-libmpv-shared --enable-libbluray --enable-dvdnav --enable-lua --disable-iconv --disable-debug-build
   python waf build
 }
 

@@ -33,14 +33,12 @@ build() {
     -DJPEGXL_ENABLE_DEVTOOLS=OFF \
     -DJPEGXL_ENABLE_BENCHMARK=OFF \
     -DJPEGXL_ENABLE_SJPEG=OFF   
-  $MAKE
+  $CMAKE --build .
 }
 
 package() {
   cd $srcdir/libjxl/build
-  $MAKE DESTDIR=$pkgdir install
-  mv $pkgdir/msys64/* $pkgdir
-  rm -rf $pkgdir/msys64
+  $CMAKE --install . --prefix=$pkgdir/opt
   mv $pkgdir/opt/lib/libbrotlienc-static.a $pkgdir/opt/lib/libbrotlienc.a
   mv $pkgdir/opt/lib/libbrotlidec-static.a $pkgdir/opt/lib/libbrotlidec.a
   mv $pkgdir/opt/lib/libbrotlicommon-static.a $pkgdir/opt/lib/libbrotlicommon.a 

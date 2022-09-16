@@ -64,8 +64,8 @@ jobs:
       shell: msys2 {0}
       run: |        
         curl -OL https://github.com/${{ github.repository }}/releases/download/latest/ffmpeg-5.1.1-1-x86_64.pkg.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/latest/luajit2-2.1_20220411-1-x86_64.pkg.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/latest/vapoursynth-59-1-x86_64.pkg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/latest/luajit2-2.1_20220915-1-x86_64.pkg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/latest/vapoursynth-60-1-x86_64.pkg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/latest/mpv-0.34.1-1-x86_64.pkg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/latest/config-1.0-1-x86_64.pkg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/latest/mcfgthread-20220823-1-x86_64.pkg.tar.xz

@@ -62,7 +62,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/shaderc-dev-2022.2-1-x86_64.pkg.tar.zst
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/spirv-cross-dev-2021.01.15-1-x86_64.pkg.tar.zst
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libplacebo-dev-4.208.0-1-x86_64.pkg.tar.zst
-        pacman -U /d/a/mpv-win64/mpv-win64/*.zst --noconfirm
+        pacman -U *.zst --noconfirm
         cd mpv; PKG_CONFIG_PATH=/opt/lib/pkgconfig makepkg
     - name: Upload
       uses: svenstaro/upload-release-action@v2

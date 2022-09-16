@@ -13,7 +13,6 @@ md5sums=('SKIP' 'SKIP' 'SKIP')
 
 build() {
   export CFLAGS="${CFLAGS} -D_WIN32_WINNT=0x0600 -D__STDC_FORMAT_MACROS -DSTRSAFE_NO_DEPRECATE -Wno-unused-function"
-  export CPPFLAGS="${CPPFLAGS} -D__STDC_FORMAT_MACROS"
   export CXXFLAGS="${CXXFLAGS} -D__USE_MINGW_ANSI_STDIO -D__STDC_FORMAT_MACROS -fpermissive -D_WIN32_WINNT=0x0600 -Wno-unused-function"   
   
   cd $srcdir/Vulkan-Headers

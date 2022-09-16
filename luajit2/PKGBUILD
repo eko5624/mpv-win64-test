@@ -11,18 +11,14 @@ source=("git+https://github.com/openresty/luajit2"
 md5sums=('SKIP' 'SKIP')
 
 build() {   
+  CFLAGS='-D_WIN32_WINNT=0x0602 -DUNICODE'
+  XCFLAGS='-DLUAJIT_ENABLE_LUA52COMPAT -DLUAJIT_DISABLE_JIT -DLUAJIT_ENABLE_GC64'  
   cd $srcdir/luajit2
-  patch -p1 -i $srcdir/luajit-0001-add-win32-utf-8-filesystem-functions.patch
-  make amalg BUILDMODE=static PREFIX=/opt \
-    CFLAGS='-D_WIN32_WINNT=0x0602 -DUNICODE' \
-    XCFLAGS='-DLUAJIT_ENABLE_LUA52COMPAT'  
+  make amalg BUILDMODE=static PREFIX=/opt
 }
 
 package() {
   cd $srcdir/luajit2
-  make DESTDIR=$pkgdir PREFIX=/opt \
-    CFLAGS='-D_WIN32_WINNT=0x0602 -DUNICODE' \
-    XCFLAGS='-DLUAJIT_ENABLE_LUA52COMPAT' \
-    install
-  rm -rf $pkgdir/opt/bin $pkgdir/opt/share $pkgdir/opt/lib/lua  
+  make DESTDIR=$pkgdir PREFIX=/opt install
+  rm -rf $pkgdir/opt/bin $pkgdir/opt/share $pkgdir/opt/lib/lua
 }

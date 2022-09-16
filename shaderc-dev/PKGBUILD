@@ -1,4 +1,3 @@
-# Maintainer: nyfair <nyfair2012@gmail.com>
 pkgname=shaderc-dev
 pkgver=2022.2
 pkgrel=1
@@ -6,33 +5,36 @@ pkgdesc='Collection of tools, libraries and tests for shader compilation'
 arch=('x86_64')
 url="https://github.com/google/shaderc/"
 license=('Apache')
-source=("https://github.com/google/shaderc/archive/v$pkgver.tar.gz")
-md5sums=('SKIP')
+source=("git+https://github.com/google/shaderc"
+        "git+https://github.com/KhronosGroup/glslang"
+        "git+https://github.com/KhronosGroup/SPIRV-Headers"
+        "git+https://github.com/KhronosGroup/SPIRV-Tools")
+md5sums=('SKIP' 'SKIP' 'SKIP' 'SKIP')
 
 build() {
   cd $srcdir
-  cp shaderc-$pkgver/DEPS ./
-  curl -OL https://github.com/KhronosGroup/glslang/archive/`cat DEPS | grep glslang | head -n1 | cut -d\' -f4`.tar.gz
-  curl -OL https://github.com/KhronosGroup/SPIRV-Headers/archive/`cat DEPS | grep spirv_headers | head -n1 | cut -d\' -f4`.tar.gz
-  curl -OL https://github.com/KhronosGroup/SPIRV-Tools/archive/`cat DEPS | grep spirv_tools | head -n1 | cut -d\' -f4`.tar.gz
-  for f in *.gz; do tar xvf "$f"; done 
-  mv glslang* glslang
-  mv SPIRV-Headers* spirv-headers
-  mv SPIRV-Tools* spirv-tools
-  sed -i 's/-fno-exceptions/-fexceptions/g' glslang/CMakeLists.txt
-  cp spirv-headers/SPIRV-Headers.pc.in shaderc-$pkgver/
-  cd shaderc-$pkgver
+  mv SPIRV-Headers spirv-headers
+  mv SPIRV-Tools spirv-tools
+  # sed -i 's/-fno-exceptions/-fexceptions/g' glslang/CMakeLists.txt
+  # cp spirv-headers/SPIRV-Headers.pc.in shaderc
+  cd $srcdir/shaderc
+  mv $srcdir/spirv-headers third_party
+  mv $srcdir/spirv-tools third_party
+  mv $srcdir/glslang third_party
   rm -rf build && mkdir build && cd build
   $CMAKE .. -G "MinGW Makefiles" -DCMAKE_INSTALL_PREFIX=/opt -DCMAKE_BUILD_TYPE=Release \
-    -DSHADERC_SKIP_TESTS=ON -DSHADERC_SKIP_SPVC=ON -DSHADERC_SKIP_INSTALL=ON -DSHADERC_SKIP_EXAMPLES=ON -DSHADERC_THIRD_PARTY_ROOT_DIR="${srcdir}"
-  $CMAKE --build .
+    -DSHADERC_SKIP_TESTS=ON \
+    -DSHADERC_SKIP_SPVC=ON \
+    -DSHADERC_SKIP_INSTALL=ON \
+    -DSHADERC_SKIP_EXAMPLES=ON \
+    -DCMAKE_CXX_FLAGS='-std=c++11'
+  $MAKE
 }
 
 package() {
-  cd $srcdir/shaderc-$pkgver
+  cd $srcdir/shaderc
   mkdir -p $pkgdir/opt/lib/pkgconfig
   cp -r libshaderc/include $pkgdir/opt
-  cp -r libshaderc_util/include/libshaderc_util $pkgdir/opt/include
   cp build/libshaderc/libshaderc_combined.a $pkgdir/opt/lib
   cp build/shaderc_combined.pc $pkgdir/opt/lib/pkgconfig
 }

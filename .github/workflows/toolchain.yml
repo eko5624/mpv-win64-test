@@ -38,7 +38,7 @@ jobs:
 
     - name: Delete
       if: steps.cache.outputs.cache-hit != 'true'
-      uses: mknejp/delete-release-assets@v1
+      uses: eko5624/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: latest

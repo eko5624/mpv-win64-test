@@ -44,10 +44,11 @@ jobs:
         tag: latest
         assets: mcfgthread*
         fail-if-no-assets: false
-        fail-if-no-release: false        
-    - name: Upload
-      if: steps.cache.outputs.cache-hit != 'true'
-      uses: actions/upload-artifact@v3
+        fail-if-no-release: false               
+    - name: Release
+      uses: eko5624/action-gh-release@v1.1
       with:
-        name: mcfgthread
-        path: mcfgthread/*pkg*.xz
+        tag_name: dev
+        files: mcfgthread/*pkg*.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
